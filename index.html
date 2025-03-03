@@ -139,7 +139,6 @@
         <div id="bullet4" class="military-bullet"></div>
         <div id="bullet5" class="military-bullet"></div>
         <div id="bullet6" class="military-bullet"></div>
-        <img id="landingZone" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/landingZone.svg" style="position: absolute; width: 100px; height: 10px; top: 360px;">
         <img id="city" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/city.svg" style="position: absolute; width: 2400px; height: 60px; bottom: 0;">
         <div id="ui">Damage: 0% | Time: 60 | Score: 0</div>
         <div id="endGame"></div>
@@ -167,7 +166,6 @@
             document.getElementById('bullet3'), document.getElementById('bullet4'), 
             document.getElementById('bullet5'), document.getElementById('bullet6')
         ];
-        const landingZone = document.getElementById('landingZone');
         const ui = document.getElementById('ui');
         const endGame = document.getElementById('endGame');
         const titleCard = document.getElementById('titleCard');
@@ -178,7 +176,6 @@
         let bulletX = Array(6).fill(0), bulletY = Array(6).fill(0);
         let bulletVX = Array(6).fill(0), bulletVY = Array(6).fill(0);
         let bulletActive = Array(6).fill(false);
-        let landingX = 200;
         let damage = 0, timer = 60, score = 0, abductions = 0, kills = 0;
         let isShielded = false;
         let provoked = false;
@@ -301,7 +298,6 @@
                 bulletActive[i] = false;
                 bullets[i].style.display = 'none';
             }
-            landingX = 200; landingZone.style.left = landingX + 'px';
             endGame.style.display = 'none';
             ufo.className = '';
             ufo.src = `${githubBaseUrl}ufo.svg`;
@@ -445,7 +441,7 @@
                             bulletVY[i + 3] = (dy / dist) * 5;
                             bullets[i + 3].style.left = bulletX[i + 3] + 'px';
                             bullets[i].style.top = bulletY[i + 3] + 'px';
-                            bullets[i + 3].style.display = 'block';
+                            bullets[i].style.display = 'block';
                         }
                     }
                 }
@@ -467,11 +463,6 @@
                         }
                     }
                 }
-
-                landingX += scrollSpeed;
-                if (landingX > 800) landingX -= LAYER_WIDTH;
-                if (landingX < -LAYER_WIDTH) landingX += LAYER_WIDTH;
-                landingZone.style.left = landingX + 'px';
 
                 if (keys['b'] && titleCard.style.display === 'none') {
                     blueBeam.style.left = (ufoX + 20) + 'px';
