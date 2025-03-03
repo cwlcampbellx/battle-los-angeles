@@ -29,53 +29,6 @@
             pointer-events: none;
             z-index: -1;
         }
-        .ufo {
-            position: absolute;
-            width: 60px;
-            height: 30px;
-            background: #808080;
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 15px #808080, 0 5px 5px rgba(0, 0, 0, 0.7);
-            transition: background 0.5s ease-in-out;
-            z-index: 5;
-        }
-        .ufo::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 0;
-            width: 60px;
-            height: 10px;
-            background: red;
-            animation: pulse 0.8s infinite;
-        }
-        .ufo::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 20px;
-            width: 20px;
-            height: 10px;
-            background: #999;
-            border-radius: 50% 50% 0 0;
-        }
-        .ufo.crash {
-            background: #ff4500;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-        .shield {
-            position: absolute;
-            width: 70px;
-            height: 40px;
-            background: radial-gradient(rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 0));
-            border-radius: 50%;
-            box-shadow: 0 0 20px #00ffff;
-            display: none;
-            z-index: 6;
-        }
         .blueBeam {
             position: absolute;
             width: 20px;
@@ -92,213 +45,6 @@
             display: none;
             z-index: 4;
         }
-        .city {
-            position: absolute;
-            width: 2400px;
-            height: 60px;
-            background: #333 repeating-linear-gradient(90deg, transparent, transparent 10px, white 10px, white 15px);
-            bottom: 0;
-            z-index: 2;
-        }
-        .city::before {
-            content: '';
-            position: absolute;
-            width: 2400px;
-            height: 10px;
-            background: #555;
-            top: 0;
-        }
-        .city::after {
-            content: '';
-            position: absolute;
-            width: 2400px;
-            height: 10px;
-            background: #555;
-            bottom: 0;
-        }
-        .city-detail {
-            position: absolute;
-            background: #444;
-        }
-        .person {
-            position: absolute;
-            width: 10px;
-            height: 20px;
-            top: 350px;
-            z-index: 3;
-        }
-        .person::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: inherit;
-            border-radius: 50%;
-            top: -10px;
-            left: 1px;
-        }
-        .person::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 10px;
-            background: inherit;
-            top: 0;
-            left: -4px;
-        }
-        .person .right-arm {
-            position: absolute;
-            width: 4px;
-            height: 10px;
-            background: inherit;
-            top: 0;
-            right: -4px;
-        }
-        .person .left-leg {
-            position: absolute;
-            width: 4px;
-            height: 10px;
-            background: inherit;
-            bottom: -5px;
-            left: 0;
-            animation: walkLeg 0.5s steps(2) infinite;
-        }
-        .person .right-leg {
-            position: absolute;
-            width: 4px;
-            height: 10px;
-            background: inherit;
-            bottom: -5px;
-            right: 0;
-            animation: walkLeg 0.5s steps(2) infinite reverse;
-        }
-        .police {
-            position: absolute;
-            width: 12px;
-            height: 25px;
-            background: #0000ff;
-            top: 345px;
-            z-index: 3;
-        }
-        .police::before {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #0000ff;
-            border-radius: 50%;
-            top: -12px;
-            left: 1px;
-        }
-        .police::after {
-            content: '';
-            position: absolute;
-            width: 14px;
-            height: 6px;
-            background: #ffff00;
-            top: -16px;
-            left: -1px;
-            border-radius: 2px 2px 0 0;
-            box-shadow: inset 0 2px 0 #666;
-        }
-        .police .right-arm {
-            position: absolute;
-            width: 5px;
-            height: 12px;
-            background: #0000ff;
-            top: 0;
-            right: -5px;
-            animation: runArm 0.4s steps(2) infinite;
-        }
-        .police .left-leg {
-            position: absolute;
-            width: 5px;
-            height: 12px;
-            background: #0000ff;
-            bottom: -6px;
-            left: 0;
-            animation: runLeg 0.4s steps(2) infinite;
-        }
-        .police .right-leg {
-            position: absolute;
-            width: 5px;
-            height: 12px;
-            background: #0000ff;
-            bottom: -6px;
-            right: 0;
-            animation: runLeg 0.4s steps(2) infinite reverse;
-        }
-        .military {
-            position: absolute;
-            width: 15px;
-            height: 30px;
-            background: #006600;
-            top: 340px;
-            z-index: 3;
-        }
-        .military::before {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #006600;
-            border-radius: 50%;
-            top: -14px;
-            left: 1.5px;
-        }
-        .military::after {
-            content: '';
-            position: absolute;
-            width: 16px;
-            height: 8px;
-            background: #003300;
-            top: -18px;
-            left: -0.5px;
-            border-radius: 4px 4px 0 0;
-            box-shadow: inset 0 -2px 0 #002200;
-        }
-        .military .right-arm {
-            position: absolute;
-            width: 6px;
-            height: 14px;
-            background: #006600;
-            top: 0;
-            right: -6px;
-            animation: runArm 0.3s steps(2) infinite;
-        }
-        .military .left-leg {
-            position: absolute;
-            width: 6px;
-            height: 14px;
-            background: #006600;
-            bottom: -7px;
-            left: 0;
-            animation: runLeg 0.3s steps(2) infinite;
-        }
-        .military .right-leg {
-            position: absolute;
-            width: 6px;
-            height: 14px;
-            background: #006600;
-            bottom: -7px;
-            right: 0;
-            animation: runLeg 0.3s steps(2) infinite reverse;
-        }
-        @keyframes walkLeg {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(2px); }
-            100% { transform: translateX(0); }
-        }
-        @keyframes runArm {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(20deg); }
-            100% { transform: rotate(0deg); }
-        }
-        @keyframes runLeg {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(3px); }
-            100% { transform: translateX(0); }
-        }
         .bullet {
             position: absolute;
             width: 5px;
@@ -308,14 +54,24 @@
             display: none;
             z-index: 4;
         }
-        .landingZone {
+        .military-bullet {
             position: absolute;
-            width: 100px;
-            height: 10px;
-            background: linear-gradient(#ffff00, #cc0);
-            border: 2px dashed #cc0;
-            top: 360px;
-            z-index: 2;
+            width: 8px;
+            height: 15px;
+            background: #ff0;
+            border-radius: 3px;
+            display: none;
+            z-index: 4;
+        }
+        .shield {
+            position: absolute;
+            width: 70px;
+            height: 40px;
+            background: radial-gradient(rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 0));
+            border-radius: 50%;
+            box-shadow: 0 0 20px #00ffff;
+            display: none;
+            z-index: 6;
         }
         #ui {
             position: absolute;
@@ -366,110 +122,28 @@
         #titleCard p {
             margin: 10px 0;
         }
-        .background-buildings {
-            position: absolute;
-            width: 2400px;
-            height: 150px;
-            bottom: 60px;
-            z-index: 0;
-        }
-        .midground-buildings {
-            position: absolute;
-            width: 2400px;
-            height: 200px;
-            bottom: 60px;
-            z-index: 1;
-        }
-        .foreground-buildings {
-            position: absolute;
-            width: 2400px;
-            height: 250px;
-            bottom: 60px;
-            z-index: 2;
-        }
-        .building-background {
-            position: absolute;
-            background: #8B4513 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJElEQVQYV2NkYGD4z8DA8P+/v38YGBgYfgCnCjAYxsbGxkYAAOcmC3G8S+obAAAAAElFTkSuQmCC') repeat;
-            bottom: 0;
-        }
-        .building-midground {
-            position: absolute;
-            background: #A0522D url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJElEQVQYV2NkYGD4z8DA8P+/v38YGBgYfgCnCjAYxsbGxkYAAOcmC3G8S+obAAAAAElFTkSuQmCC') repeat;
-            bottom: 0;
-        }
-        .building-foreground {
-            position: absolute;
-            background: #CD5C5C url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJElEQVQYV2NkYGD4z8DA8P+/v38YGBgYfgCnCjAYxsbGxkYAAOcmC3G8S+obAAAAAElFTkSuQmCC') repeat;
-            bottom: 0;
-        }
-        .window-background {
-            position: absolute;
-            background: yellow;
-            width: 5px;
-            height: 5px;
-        }
-        .window-midground {
-            position: absolute;
-            background: yellow;
-            width: 10px;
-            height: 10px;
-        }
-        .window-foreground {
-            position: absolute;
-            background: yellow;
-            width: 15px;
-            height: 15px;
-        }
-        .trees {
-            position: absolute;
-            width: 2400px;
-            height: 100px;
-            bottom: 60px;
-            z-index: 3;
-        }
-        .tree {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-bottom: 40px solid #006400;
-            bottom: 10px;
-        }
-        .tree::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 10px;
-            background: #3C2F2F;
-            bottom: -10px;
-            left: -3px;
-        }
     </style>
 </head>
 <body>
     <div id="gameCanvas">
-        <div id="backgroundBuildings" class="background-buildings"></div>
-        <div id="midgroundBuildings" class="midground-buildings"></div>
-        <div id="foregroundBuildings" class="foreground-buildings"></div>
-        <div id="trees" class="trees"></div>
-        <div id="city" class="city" style="left: 0;"></div>
-        <div id="ufo" class="ufo"></div>
+        <!-- SVG assets with GitHub raw URLs -->
+        <img id="ufo" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/ufo.svg" style="position: absolute; width: 60px; height: 30px;">
         <div id="shield" class="shield"></div>
         <div id="blueBeam" class="blueBeam"></div>
         <div id="redBeam" class="redBeam"></div>
         <div id="bullet1" class="bullet"></div>
         <div id="bullet2" class="bullet"></div>
         <div id="bullet3" class="bullet"></div>
-        <div id="bullet4" class="bullet"></div>
-        <div id="bullet5" class="bullet"></div>
-        <div id="bullet6" class="bullet"></div>
-        <div id="landingZone" class="landingZone" style="left: 200px;"></div>
+        <div id="bullet4" class="military-bullet"></div>
+        <div id="bullet5" class="military-bullet"></div>
+        <div id="bullet6" class="military-bullet"></div>
+        <img id="landingZone" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/landingZone.svg" style="position: absolute; width: 100px; height: 10px; top: 360px;">
+        <img id="city" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/city.svg" style="position: absolute; width: 2400px; height: 60px; bottom: 0;">
         <div id="ui">Damage: 0% | Time: 60 | Score: 0</div>
         <div id="endGame"></div>
         <div id="titleCard">
             <h1>BATTLE LOS ANGELES</h1>
-            <p>Instructions: Control your UFO to abduct or destroy units below. Avoid damage from police bullets and survive as long as possible!</p>
+            <p>Instructions: Control your UFO to abduct or destroy units below. Avoid damage from police and military bullets and survive as long as possible!</p>
             <p>How to Play: Arrow Keys: Move UFO | Spacebar: Shield | B: Abduct (Blue Beam) | V: Destroy (Red Beam) | R: Restart</p>
             <p>Made by Trollon</p>
             <p>(Click to Start)</p>
@@ -483,10 +157,6 @@
         const blueBeam = document.getElementById('blueBeam');
         const redBeam = document.getElementById('redBeam');
         const city = document.getElementById('city');
-        const backgroundBuildings = document.getElementById('backgroundBuildings');
-        const midgroundBuildings = document.getElementById('midgroundBuildings');
-        const foregroundBuildings = document.getElementById('foregroundBuildings');
-        const trees = document.getElementById('trees');
         let civilians = [];
         let police = [];
         let military = [];
@@ -500,8 +170,10 @@
         const endGame = document.getElementById('endGame');
         const titleCard = document.getElementById('titleCard');
 
+        // GitHub raw base URL for your repository
+        const githubBaseUrl = "https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/";
+
         let ufoX = 100, ufoY = 100, ufoVX = 0, ufoVY = 0, cityX = 0;
-        let backgroundBuildingsX = 0, midgroundBuildingsX = 0, foregroundBuildingsX = 0, treesX = 0;
         let bulletX = Array(6).fill(0), bulletY = Array(6).fill(0);
         let bulletVX = Array(6).fill(0), bulletVY = Array(6).fill(0);
         let bulletActive = Array(6).fill(false);
@@ -512,7 +184,6 @@
         let lastSpawnTime = 0;
         const maxSpeed = 5, friction = 0.95;
         const LAYER_WIDTH = 2400;
-
         const MAX_CIVILIANS = 10, MAX_POLICE = 6, MAX_MILITARY = 4;
 
         const keys = {};
@@ -539,123 +210,61 @@
             return x1 < x2 + w2 && x1 + w1 > x2;
         }
 
-        function generateCityDetails() {
-            for (let i = 0; i < 50; i++) {
-                const detail = document.createElement('div');
-                detail.className = 'city-detail';
-                const size = Math.random() * 5 + 2;
-                detail.style.width = `${size}px`;
-                detail.style.height = `${size}px`;
-                detail.style.left = `${Math.random() * LAYER_WIDTH}px`;
-                detail.style.top = `${Math.random() * 40 + 10}px`;
-                detail.style.background = `hsl(0, 0%, ${Math.random() * 20 + 40}%)`;
-                city.appendChild(detail);
-            }
-        }
-
-        function generateBackgroundBuildings() {
-            backgroundBuildings.innerHTML = '';
-            for (let i = 0; i < 10; i++) {
-                const building = document.createElement('div');
-                building.className = 'building-background';
-                const width = Math.random() * 30 + 50;
-                const height = Math.random() * 30 + 30;
-                building.style.width = `${width}px`;
-                building.style.height = `${height}px`;
-                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
-                const numWindows = Math.floor(Math.random() * 3) + 1;
-                for (let j = 0; j < numWindows; j++) {
-                    const window = document.createElement('div');
-                    window.className = 'window-background';
-                    const windowX = Math.random() * (width - 5);
-                    const windowY = Math.random() * (height - 5);
-                    window.style.left = `${windowX}px`;
-                    window.style.top = `${windowY}px`;
-                    building.appendChild(window);
-                }
-                backgroundBuildings.appendChild(building);
-            }
-        }
-
-        function generateMidgroundBuildings() {
-            midgroundBuildings.innerHTML = '';
-            for (let i = 0; i < 15; i++) {
-                const building = document.createElement('div');
-                building.className = 'building-midground';
-                const width = Math.random() * 40 + 80;
-                const height = Math.random() * 40 + 60;
-                building.style.width = `${width}px`;
-                building.style.height = `${height}px`;
-                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
-                const numWindows = Math.floor(Math.random() * 4) + 2;
-                for (let j = 0; j < numWindows; j++) {
-                    const window = document.createElement('div');
-                    window.className = 'window-midground';
-                    const windowX = Math.random() * (width - 10);
-                    const windowY = Math.random() * (height - 10);
-                    window.style.left = `${windowX}px`;
-                    window.style.top = `${windowY}px`;
-                    building.appendChild(window);
-                }
-                midgroundBuildings.appendChild(building);
-            }
-        }
-
-        function generateForegroundBuildings() {
-            foregroundBuildings.innerHTML = '';
-            for (let i = 0; i < 10; i++) {
-                const building = document.createElement('div');
-                building.className = 'building-foreground';
-                const width = Math.random() * 50 + 100;
-                const height = Math.random() * 60 + 80;
-                building.style.width = `${width}px`;
-                building.style.height = `${height}px`;
-                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
-                const numWindows = Math.floor(Math.random() * 5) + 3;
-                for (let j = 0; j < numWindows; j++) {
-                    const window = document.createElement('div');
-                    window.className = 'window-foreground';
-                    const windowX = Math.random() * (width - 15);
-                    const windowY = Math.random() * (height - 15);
-                    window.style.left = `${windowX}px`;
-                    window.style.top = `${windowY}px`;
-                    building.appendChild(window);
-                }
-                foregroundBuildings.appendChild(building);
-            }
-        }
-
-        function generateTrees() {
-            trees.innerHTML = '';
-            for (let i = 0; i < 20; i++) {
-                const tree = document.createElement('div');
-                tree.className = 'tree';
-                tree.style.left = `${Math.random() * LAYER_WIDTH}px`;
-                trees.appendChild(tree);
-            }
-        }
-
-        function spawnUnit(type) {
-            const unit = document.createElement('div');
+        function spawnUnit(type, baseX, groupSize = 1) {
+            const unit = document.createElement('img');
             unit.className = type;
-            const x = Math.random() * 785;
+            const x = baseX + (Math.random() - 0.5) * 20 * groupSize;
+            unit.src = `${githubBaseUrl}${type}.svg`;
+            unit.style.position = 'absolute';
             unit.style.left = `${x}px`;
+            unit.style.width = '15px';
+            unit.style.height = '30px';
+            unit.style.top = '340px';
             unit.x = x;
-            if (type === 'person') {
-                const r = Math.floor(Math.random() * (210 - 139) + 139);
-                const g = Math.floor(Math.random() * (117 - 69) + 69);
-                const b = Math.floor(Math.random() * (77 - 29) + 29);
-                unit.style.background = `rgb(${r}, ${g}, ${b})`;
-                unit.innerHTML = '<div class="right-arm"></div><div class="left-leg"></div><div class="right-leg"></div>';
-            } else if (type === 'police' || type === 'military') {
-                unit.innerHTML = '<div class="right-arm"></div><div class="left-leg"></div><div class="right-leg"></div>';
-            }
-            unit.direction = Math.random() > 0.5 ? 1 : -1;
-            unit.speed = type === 'person' ? 1 : type === 'police' ? 2 : 3;
+            unit.speed = type === 'person' ? 2 : type === 'police' ? 1.5 : 2;
             unit.stepTimer = 0;
             unit.isActive = true;
             canvas.appendChild(unit);
             return unit;
+        }
+
+        function spawnGroup(type, count) {
+            const baseX = Math.random() * 785;
+            const group = [];
+            for (let i = 0; i < count; i++) {
+                group.push(spawnUnit(type, baseX, count));
+            }
+            return group;
+        }
+
+        function spawnBuilding(type, baseX) {
+            const building = document.createElement('img');
+            building.className = type;
+            const width = type === 'building-background' ? 80 : type === 'building-midground' ? 120 : 150;
+            const height = type === 'building-background' ? 60 : type === 'building-midground' ? 100 : 140;
+            building.src = `${githubBaseUrl}${type}.svg`;
+            building.style.position = 'absolute';
+            building.style.left = `${baseX}px`;
+            building.style.width = `${width}px`;
+            building.style.height = `${height}px`;
+            building.style.bottom = '60px';
+            building.x = baseX;
+            canvas.appendChild(building);
+            return building;
+        }
+
+        function spawnTree(baseX) {
+            const tree = document.createElement('img');
+            tree.className = 'tree';
+            tree.src = `${githubBaseUrl}tree.svg`;
+            tree.style.position = 'absolute';
+            tree.style.left = `${baseX}px`;
+            tree.style.width = '30px';
+            tree.style.height = '50px';
+            tree.style.bottom = '60px';
+            tree.x = baseX;
+            canvas.appendChild(tree);
+            return tree;
         }
 
         function resetGame() {
@@ -665,30 +274,34 @@
             provoked = false;
             lastSpawnTime = 0;
             cityX = 0; city.style.left = '0px';
-            backgroundBuildingsX = 0; backgroundBuildings.style.left = '0px';
-            midgroundBuildingsX = 0; midgroundBuildings.style.left = '0px';
-            foregroundBuildingsX = 0; foregroundBuildings.style.left = '0px';
-            treesX = 0; trees.style.left = '0px';
-            city.innerHTML = '';
-            generateCityDetails();
-            generateBackgroundBuildings();
-            generateMidgroundBuildings();
-            generateForegroundBuildings();
-            generateTrees();
+
+            // Clear and regenerate dynamic assets
             civilians.forEach(unit => unit.remove());
             police.forEach(unit => unit.remove());
             military.forEach(unit => unit.remove());
-            civilians = []; police = []; military = [];
-            for (let i = 0; i < MAX_CIVILIANS; i++) civilians.push(spawnUnit('person'));
-            for (let i = 0; i < MAX_POLICE; i++) police.push(spawnUnit('police'));
-            for (let i = 0; i < MAX_MILITARY; i++) military.push(spawnUnit('military'));
+            const existingBuildings = canvas.querySelectorAll('.building-background, .building-midground, .building-foreground, .tree');
+            existingBuildings.forEach(building => building.remove());
+
+            civilians = [];
+            police = [];
+            military = [];
+            for (let i = 0; i < MAX_CIVILIANS; i++) civilians.push(spawnUnit('person', Math.random() * 785));
+            for (let i = 0; i < MAX_POLICE / 2; i++) police.push(...spawnGroup('police', Math.floor(Math.random() * 3) + 2));
+            for (let i = 0; i < MAX_MILITARY / 2; i++) military.push(...spawnGroup('military', Math.floor(Math.random() * 3) + 2));
+
+            for (let i = 0; i < 10; i++) spawnBuilding('building-background', Math.random() * LAYER_WIDTH);
+            for (let i = 0; i < 15; i++) spawnBuilding('building-midground', Math.random() * LAYER_WIDTH);
+            for (let i = 0; i < 10; i++) spawnBuilding('building-foreground', Math.random() * LAYER_WIDTH);
+            for (let i = 0; i < 20; i++) spawnTree(Math.random() * LAYER_WIDTH);
+
             for (let i = 0; i < bullets.length; i++) {
                 bulletActive[i] = false;
                 bullets[i].style.display = 'none';
             }
             landingX = 200; landingZone.style.left = landingX + 'px';
             endGame.style.display = 'none';
-            ufo.classList.remove('crash');
+            ufo.className = ''; // Reset crash state
+            ufo.src = `${githubBaseUrl}ufo.svg`; // Reset to normal UFO SVG
             ufo.style.top = '100px';
             titleCard.style.display = 'block';
         }
@@ -702,9 +315,10 @@
                 }
                 unit.x += scrollSpeed;
                 unit.stepTimer += 0.016;
-                const stepInterval = unit.className === 'person' ? 0.5 : unit.className === 'police' ? 0.4 : 0.3;
+                const stepInterval = unit.className === 'person' ? 0.5 : 0.3;
                 if (unit.stepTimer >= stepInterval) {
-                    unit.x += unit.speed * unit.direction;
+                    const direction = unit.className === 'person' ? (unit.x < ufoX ? 1 : -1) : (unit.x < ufoX ? 1 : -1);
+                    unit.x += unit.speed * direction;
                     unit.stepTimer = 0;
                     if (unit.x < -unitWidth) unit.x += 800;
                     if (unit.x > 800) unit.x -= 800;
@@ -717,26 +331,37 @@
             });
         }
 
+        function updateBuildings(className, scrollSpeed) {
+            const buildings = canvas.querySelectorAll(`.${className}`);
+            buildings.forEach(building => {
+                building.x += scrollSpeed;
+                if (building.x > 800) building.x -= LAYER_WIDTH;
+                if (building.x < -LAYER_WIDTH) building.x += LAYER_WIDTH;
+                building.style.left = building.x + 'px';
+            });
+        }
+
         function respawnUnits(currentTime) {
             const elapsedTime = currentTime - lastSpawnTime;
             const spawnInterval = 2;
 
             if (elapsedTime >= spawnInterval) {
                 if (civilians.length < MAX_CIVILIANS && Math.random() < 0.3) {
-                    civilians.push(spawnUnit('person'));
+                    civilians.push(spawnUnit('person', Math.random() * 785));
                 }
                 if (police.length < MAX_POLICE && Math.random() < 0.2) {
-                    police.push(spawnUnit('police'));
+                    police.push(...spawnGroup('police', Math.floor(Math.random() * 3) + 2));
                 }
                 if (military.length < MAX_MILITARY && Math.random() < 0.15) {
-                    military.push(spawnUnit('military'));
+                    military.push(...spawnGroup('military', Math.floor(Math.random() * 3) + 2));
                 }
                 lastSpawnTime = currentTime - (Math.random() * 2 - 1);
             }
         }
 
         function crashUFO() {
-            ufo.classList.add('crash');
+            ufo.className = 'crash';
+            ufo.src = `${githubBaseUrl}ufo.svg`; // Assuming your crashed UFO is still 'ufo.svg'; adjust if separate
             ufo.style.top = '370px';
             setTimeout(() => {
                 endGame.style.display = 'block';
@@ -779,36 +404,21 @@
                 if (cityX < -LAYER_WIDTH) cityX += LAYER_WIDTH;
                 city.style.left = cityX + 'px';
 
-                backgroundBuildingsX += scrollSpeed * 0.2;
-                if (backgroundBuildingsX > 800) backgroundBuildingsX -= LAYER_WIDTH;
-                if (backgroundBuildingsX < -LAYER_WIDTH) backgroundBuildingsX += LAYER_WIDTH;
-                backgroundBuildings.style.left = backgroundBuildingsX + 'px';
-
-                midgroundBuildingsX += scrollSpeed * 0.4;
-                if (midgroundBuildingsX > 800) midgroundBuildingsX -= LAYER_WIDTH;
-                if (midgroundBuildingsX < -LAYER_WIDTH) midgroundBuildingsX += LAYER_WIDTH;
-                midgroundBuildings.style.left = midgroundBuildingsX + 'px';
-
-                foregroundBuildingsX += scrollSpeed * 0.6;
-                if (foregroundBuildingsX > 800) foregroundBuildingsX -= LAYER_WIDTH;
-                if (foregroundBuildingsX < -LAYER_WIDTH) foregroundBuildingsX += LAYER_WIDTH;
-                foregroundBuildings.style.left = foregroundBuildingsX + 'px';
-
-                treesX += scrollSpeed * 0.8;
-                if (treesX > 800) treesX -= LAYER_WIDTH;
-                if (treesX < -LAYER_WIDTH) treesX += LAYER_WIDTH;
-                trees.style.left = treesX + 'px';
+                updateBuildings('building-background', scrollSpeed * 0.2);
+                updateBuildings('building-midground', scrollSpeed * 0.4);
+                updateBuildings('building-foreground', scrollSpeed * 0.6);
+                updateBuildings('tree', scrollSpeed * 0.8);
 
                 updateUnits(civilians, 15, scrollSpeed);
-                updateUnits(police, 20, scrollSpeed);
-                updateUnits(military, 25, scrollSpeed);
+                updateUnits(police, 15, scrollSpeed);
+                updateUnits(military, 15, scrollSpeed);
                 if (titleCard.style.display === 'none') respawnUnits(currentTime);
 
                 if (provoked && titleCard.style.display === 'none') {
-                    for (let i = 0; i < police.length; i++) {
+                    for (let i = 0; i < police.length && i < 3; i++) {
                         if (!bulletActive[i] && Math.random() < 0.05 && police[i].x > 0 && police[i].x < 800) {
                             bulletActive[i] = true;
-                            bulletX[i] = police[i].x + 10;
+                            bulletX[i] = police[i].x + 7.5;
                             bulletY[i] = 340;
                             let dx = (ufoX + 30) - bulletX[i];
                             let dy = ufoY - bulletY[i];
@@ -820,6 +430,21 @@
                             bullets[i].style.display = 'block';
                         }
                     }
+                    for (let i = 0; i < military.length && i + 3 < 6; i++) {
+                        if (!bulletActive[i + 3] && Math.random() < 0.05 && military[i].x > 0 && military[i].x < 800) {
+                            bulletActive[i + 3] = true;
+                            bulletX[i + 3] = military[i].x + 7.5;
+                            bulletY[i + 3] = 340;
+                            let dx = (ufoX + 30) - bulletX[i + 3];
+                            let dy = ufoY - bulletY[i + 3];
+                            let dist = Math.sqrt(dx * dx + dy * dy);
+                            bulletVX[i + 3] = (dx / dist) * 5;
+                            bulletVY[i + 3] = (dy / dist) * 5;
+                            bullets[i + 3].style.left = bulletX[i + 3] + 'px';
+                            bullets[i].style.top = bulletY[i + 3] + 'px';
+                            bullets[i].style.display = 'block';
+                        }
+                    }
                 }
 
                 for (let i = 0; i < bullets.length; i++) {
@@ -828,8 +453,8 @@
                         bulletY[i] += bulletVY[i];
                         bullets[i].style.left = bulletX[i] + 'px';
                         bullets[i].style.top = bulletY[i] + 'px';
-                        if (checkCollision(ufoX, 60, bulletX[i], 5) && bulletY[i] < ufoY + 30 && bulletY[i] > ufoY - 10) {
-                            if (!isShielded) damage += 1;
+                        if (checkCollision(ufoX, 60, bulletX[i], i < 3 ? 5 : 8) && bulletY[i] < ufoY + 30 && bulletY[i] > ufoY - 15) {
+                            if (!isShielded) damage += (i < 3 ? 1 : 5);
                             bulletActive[i] = false;
                             bullets[i].style.display = 'none';
                         }
@@ -861,7 +486,7 @@
                         }
                     });
                     police.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 20)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
                             unit.isActive = false;
                             unit.remove();
                             police.splice(i, 1);
@@ -870,7 +495,7 @@
                         }
                     });
                     military.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 25)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
                             unit.isActive = false;
                             unit.remove();
                             military.splice(i, 1);
@@ -898,7 +523,7 @@
                         }
                     });
                     police.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 20)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
                             unit.isActive = false;
                             unit.remove();
                             police.splice(i, 1);
@@ -908,7 +533,7 @@
                         }
                     });
                     military.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 25)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
                             unit.isActive = false;
                             unit.remove();
                             military.splice(i, 1);
