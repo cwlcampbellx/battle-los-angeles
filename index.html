@@ -73,6 +73,9 @@
             display: none;
             z-index: 6;
         }
+        .person, .police, .military {
+            background-color: rgba(255, 0, 0, 0.5); /* Fallback for debugging */
+        }
         #ui {
             position: absolute;
             top: 10px;
@@ -126,7 +129,6 @@
 </head>
 <body>
     <div id="gameCanvas">
-        <!-- SVG assets with GitHub raw URLs -->
         <img id="ufo" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/ufo.svg" style="position: absolute; width: 60px; height: 30px;">
         <div id="shield" class="shield"></div>
         <div id="blueBeam" class="blueBeam"></div>
@@ -170,7 +172,6 @@
         const endGame = document.getElementById('endGame');
         const titleCard = document.getElementById('titleCard');
 
-        // GitHub raw base URL for your repository
         const githubBaseUrl = "https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/";
 
         let ufoX = 100, ufoY = 100, ufoVX = 0, ufoVY = 0, cityX = 0;
@@ -224,6 +225,7 @@
             unit.speed = type === 'person' ? 2 : type === 'police' ? 1.5 : 2;
             unit.stepTimer = 0;
             unit.isActive = true;
+            unit.onerror = () => console.error(`Failed to load ${type}.svg from ${unit.src}`);
             canvas.appendChild(unit);
             return unit;
         }
@@ -249,6 +251,7 @@
             building.style.height = `${height}px`;
             building.style.bottom = '60px';
             building.x = baseX;
+            building.onerror = () => console.error(`Failed to load ${type}.svg from ${building.src}`);
             canvas.appendChild(building);
             return building;
         }
@@ -263,6 +266,7 @@
             tree.style.height = '50px';
             tree.style.bottom = '60px';
             tree.x = baseX;
+            tree.onerror = () => console.error(`Failed to load tree.svg from ${tree.src}`);
             canvas.appendChild(tree);
             return tree;
         }
@@ -275,7 +279,6 @@
             lastSpawnTime = 0;
             cityX = 0; city.style.left = '0px';
 
-            // Clear and regenerate dynamic assets
             civilians.forEach(unit => unit.remove());
             police.forEach(unit => unit.remove());
             military.forEach(unit => unit.remove());
@@ -300,8 +303,8 @@
             }
             landingX = 200; landingZone.style.left = landingX + 'px';
             endGame.style.display = 'none';
-            ufo.className = ''; // Reset crash state
-            ufo.src = `${githubBaseUrl}ufo.svg`; // Reset to normal UFO SVG
+            ufo.className = '';
+            ufo.src = `${githubBaseUrl}ufo.svg`;
             ufo.style.top = '100px';
             titleCard.style.display = 'block';
         }
@@ -361,7 +364,7 @@
 
         function crashUFO() {
             ufo.className = 'crash';
-            ufo.src = `${githubBaseUrl}ufo.svg`; // Assuming your crashed UFO is still 'ufo.svg'; adjust if separate
+            ufo.src = `${githubBaseUrl}ufo.svg`; // Adjust if you have a separate crash SVG
             ufo.style.top = '370px';
             setTimeout(() => {
                 endGame.style.display = 'block';
@@ -442,7 +445,7 @@
                             bulletVY[i + 3] = (dy / dist) * 5;
                             bullets[i + 3].style.left = bulletX[i + 3] + 'px';
                             bullets[i].style.top = bulletY[i + 3] + 'px';
-                            bullets[i].style.display = 'block';
+                            bullets[i + 3].style.display = 'block';
                         }
                     }
                 }
