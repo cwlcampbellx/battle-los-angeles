@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BATTLE LOS ANGELES</title>
+    <title>UFO Express: Battle Over LA</title>
     <style>
         body {
             margin: 0;
@@ -20,15 +20,61 @@
             overflow: hidden;
             image-rendering: pixelated;
         }
-        #gameCanvas::before {
+        
+        /* Restore original UFO styling */
+        .ufo {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: #808080; /* Grey base */
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 15px #808080, 0 5px 5px rgba(0, 0, 0, 0.7);
+            transition: background 0.5s ease-in-out;
+            z-index: 5;
+        }
+        .ufo::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="800" height="400" fill="black"/><circle cx="10" cy="20" r="2" fill="white"/><circle cx="50" cy="50" r="3" fill="white"/><circle cx="80" cy="15" r="1" fill="white"/><circle cx="120" cy="70" r="2" fill="white"/><circle cx="150" cy="30" r="3" fill="white"/><circle cx="200" cy="90" r="1" fill="white"/><circle cx="250" cy="10" r="2" fill="white"/><circle cx="300" cy="60" r="3" fill="white"/><circle cx="350" cy="40" r="1" fill="white"/><circle cx="400" cy="80" r="2" fill="white"/><circle cx="450" cy="20" r="3" fill="white"/><circle cx="500" cy="70" r="1" fill="white"/><circle cx="550" cy="30" r="2" fill="white"/><circle cx="600" cy="90" r="3" fill="white"/><circle cx="650" cy="15" r="1" fill="white"/><circle cx="700" cy="60" r="2" fill="white"/><circle cx="750" cy="40" r="3" fill="white"/><circle cx="20" cy="150" r="1" fill="white"/><circle cx="100" cy="200" r="2" fill="white"/><circle cx="180" cy="250" r="3" fill="white"/><circle cx="260" cy="300" r="1" fill="white"/><circle cx="340" cy="350" r="2" fill="white"/><circle cx="420" cy="120" r="3" fill="white"/><circle cx="500" cy="180" r="1" fill="white"/><circle cx="580" cy="240" r="2" fill="white"/><circle cx="660" cy="300" r="3" fill="white"/><circle cx="740" cy="360" r="1" fill="white"/><path d="M0,400 Q100,300 200,350 T400,300 T600,350 T800,300 V400 H0 Z" fill="#008800"/></svg>');
-            pointer-events: none;
-            z-index: -1;
+            top: 10px;
+            left: 0;
+            width: 60px;
+            height: 10px;
+            background: red;
+            animation: pulse 0.8s infinite;
         }
+        .ufo.crash {
+            background: #ff4500;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* PNG elements */
+        .shield, .city, .person, .police, .military, 
+        .spotlight, .landingZone, .star, .hill,
+        .building-background, .building-midground, 
+        .building-foreground, .tree {
+            position: absolute;
+            background: none;
+        }
+
+        /* Dimensions for PNG elements */
+        .shield { width: 70px; height: 40px; display: none; z-index: 6; }
+        .city { width: 2400px; height: 60px; bottom: 0; z-index: 2; }
+        .person { width: 15px; height: 25px; top: 345px; z-index: 3; }
+        .police { width: 20px; height: 30px; top: 340px; z-index: 3; }
+        .military { width: 25px; height: 35px; top: 335px; z-index: 3; }
+        .spotlight { width: 20px; display: none; z-index: 4; }
+        .landingZone { width: 100px; height: 10px; top: 360px; z-index: 2; }
+        .star { width: 5px; height: 5px; }
+        .hill { bottom: 0; }
+        .building-background { bottom: 0; }
+        .building-midground { bottom: 0; }
+        .building-foreground { bottom: 0; }
+        .tree { bottom: 0; }
+
+        /* Keep original styling for blue beam, red beam, and bullets */
         .blueBeam {
             position: absolute;
             width: 20px;
@@ -54,28 +100,14 @@
             display: none;
             z-index: 4;
         }
-        .military-bullet {
-            position: absolute;
-            width: 8px;
-            height: 15px;
-            background: #ff0;
-            border-radius: 3px;
-            display: none;
-            z-index: 4;
-        }
-        .shield {
-            position: absolute;
-            width: 70px;
-            height: 40px;
-            background: radial-gradient(rgba(0, 255, 255, 0.5), rgba(0, 255, 255, 0));
-            border-radius: 50%;
-            box-shadow: 0 0 20px #00ffff;
-            display: none;
-            z-index: 6;
-        }
-        .person, .police, .military {
-            background-color: rgba(255, 0, 0, 0.5); /* Fallback for debugging */
-        }
+
+        /* Keep existing container and UI styles */
+        .stars { width: 2400px; height: 400px; top: 0; left: 0; z-index: -3; }
+        .hills { width: 2400px; height: 150px; bottom: 60px; z-index: -2; }
+        .background-buildings { width: 2400px; height: 150px; bottom: 60px; z-index: 0; }
+        .midground-buildings { width: 2400px; height: 200px; bottom: 60px; z-index: 1; }
+        .foreground-buildings { width: 2400px; height: 250px; bottom: 60px; z-index: 2; }
+        .trees { width: 2400px; height: 100px; bottom: 60px; z-index: 3; }
         #ui {
             position: absolute;
             top: 10px;
@@ -100,64 +132,55 @@
             display: none;
             z-index: 20;
         }
-        #titleCard {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #00ff00;
-            color: #fff;
-            text-align: center;
-            font-size: 20px;
-            text-shadow: 0 0 5px #00ff00;
-            z-index: 20;
-            display: block;
-            cursor: pointer;
-        }
-        #titleCard h1 {
-            margin: 0;
-            font-size: 36px;
-            color: #00ff00;
-        }
-        #titleCard p {
-            margin: 10px 0;
+
+        /* Ensure PNG images fit their containers */
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
     <div id="gameCanvas">
-        <img id="ufo" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/ufo.svg" style="position: absolute; width: 60px; height: 30px;">
-        <div id="shield" class="shield"></div>
+        <div id="stars" class="stars"></div>
+        <div id="hills" class="hills"></div>
+        <div id="backgroundBuildings" class="background-buildings"></div>
+        <div id="midgroundBuildings" class="midground-buildings"></div>
+        <div id="foregroundBuildings" class="foreground-buildings"></div>
+        <div id="trees" class="trees"></div>
+        <div id="city"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/city.png" alt="city"></div>
+        <div id="ufo" class="ufo"></div> <!-- CSS-styled UFO, no img tag -->
+        <div id="shield"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/shield.png" alt="shield"></div>
         <div id="blueBeam" class="blueBeam"></div>
         <div id="redBeam" class="redBeam"></div>
         <div id="bullet1" class="bullet"></div>
         <div id="bullet2" class="bullet"></div>
         <div id="bullet3" class="bullet"></div>
-        <div id="bullet4" class="military-bullet"></div>
-        <div id="bullet5" class="military-bullet"></div>
-        <div id="bullet6" class="military-bullet"></div>
-        <img id="city" src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/city.svg" style="position: absolute; width: 2400px; height: 60px; bottom: 0;">
+        <div id="bullet4" class="bullet"></div>
+        <div id="bullet5" class="bullet"></div>
+        <div id="bullet6" class="bullet"></div>
+        <div id="spotlight1"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/spotlight.png" alt="spotlight"></div>
+        <div id="spotlight2"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/spotlight.png" alt="spotlight"></div>
+        <div id="landingZone"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/landing_zone.png" alt="landing zone"></div>
         <div id="ui">Damage: 0% | Time: 60 | Score: 0</div>
         <div id="endGame"></div>
-        <div id="titleCard">
-            <h1>BATTLE LOS ANGELES</h1>
-            <p>Instructions: Control your UFO to abduct or destroy units below. Avoid damage from police and military bullets and survive as long as possible!</p>
-            <p>How to Play: Arrow Keys: Move UFO | Spacebar: Shield | B: Abduct (Blue Beam) | V: Destroy (Red Beam) | R: Restart</p>
-            <p>Made by Trollon</p>
-            <p>(Click to Start)</p>
-        </div>
     </div>
 
     <script>
+        // ... (JavaScript remains unchanged from your last version)
         const canvas = document.getElementById('gameCanvas');
         const ufo = document.getElementById('ufo');
         const shield = document.getElementById('shield');
         const blueBeam = document.getElementById('blueBeam');
         const redBeam = document.getElementById('redBeam');
         const city = document.getElementById('city');
+        const stars = document.getElementById('stars');
+        const hills = document.getElementById('hills');
+        const backgroundBuildings = document.getElementById('backgroundBuildings');
+        const midgroundBuildings = document.getElementById('midgroundBuildings');
+        const foregroundBuildings = document.getElementById('foregroundBuildings');
+        const trees = document.getElementById('trees');
         let civilians = [];
         let police = [];
         let military = [];
@@ -166,20 +189,23 @@
             document.getElementById('bullet3'), document.getElementById('bullet4'), 
             document.getElementById('bullet5'), document.getElementById('bullet6')
         ];
+        const spotlights = [
+            document.getElementById('spotlight1'), document.getElementById('spotlight2')
+        ];
+        const landingZone = document.getElementById('landingZone');
         const ui = document.getElementById('ui');
         const endGame = document.getElementById('endGame');
-        const titleCard = document.getElementById('titleCard');
-
-        const githubBaseUrl = "https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/";
 
         let ufoX = 100, ufoY = 100, ufoVX = 0, ufoVY = 0, cityX = 0;
+        let starsX = 0, hillsX = 0, backgroundBuildingsX = 0, midgroundBuildingsX = 0, foregroundBuildingsX = 0, treesX = 0;
         let bulletX = Array(6).fill(0), bulletY = Array(6).fill(0);
         let bulletVX = Array(6).fill(0), bulletVY = Array(6).fill(0);
         let bulletActive = Array(6).fill(false);
+        let spotlightX = [510, 910];
+        let landingX = 200;
         let damage = 0, timer = 60, score = 0, abductions = 0, kills = 0;
         let isShielded = false;
         let provoked = false;
-        let lastSpawnTime = 0;
         const maxSpeed = 5, friction = 0.95;
         const LAYER_WIDTH = 2400;
         const MAX_CIVILIANS = 10, MAX_POLICE = 6, MAX_MILITARY = 4;
@@ -200,72 +226,100 @@
             }
         });
 
-        titleCard.addEventListener('click', () => {
-            titleCard.style.display = 'none';
-        });
-
         function checkCollision(x1, w1, x2, w2) {
             return x1 < x2 + w2 && x1 + w1 > x2;
         }
 
-        function spawnUnit(type, baseX, groupSize = 1) {
-            const unit = document.createElement('img');
+        function generateStars() {
+            stars.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/star.png" alt="star">';
+                star.style.left = `${Math.random() * LAYER_WIDTH}px`;
+                star.style.top = `${Math.random() * 400}px`;
+                stars.appendChild(star);
+            }
+        }
+
+        function generateHills() {
+            hills.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const hill = document.createElement('div');
+                hill.className = 'hill';
+                hill.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/hill.png" alt="hill">';
+                const width = Math.random() * 100 + 100;
+                hill.style.width = `${width}px`;
+                hill.style.left = `${Math.random() * (LAYER_WIDTH - width)}px`;
+                hills.appendChild(hill);
+            }
+        }
+
+        function generateBackgroundBuildings() {
+            backgroundBuildings.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const building = document.createElement('div');
+                building.className = 'building-background';
+                building.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/building_background.png" alt="building">';
+                const width = Math.random() * 30 + 50;
+                building.style.width = `${width}px`;
+                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
+                backgroundBuildings.appendChild(building);
+            }
+        }
+
+        function generateMidgroundBuildings() {
+            midgroundBuildings.innerHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const building = document.createElement('div');
+                building.className = 'building-midground';
+                building.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/building_midground.png" alt="building">';
+                const width = Math.random() * 40 + 80;
+                building.style.width = `${width}px`;
+                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
+                midgroundBuildings.appendChild(building);
+            }
+        }
+
+        function generateForegroundBuildings() {
+            foregroundBuildings.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const building = document.createElement('div');
+                building.className = 'building-foreground';
+                building.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/building_foreground.png" alt="building">';
+                const width = Math.random() * 50 + 100;
+                building.style.width = `${width}px`;
+                building.style.left = `${Math.random() * LAYER_WIDTH}px`;
+                foregroundBuildings.appendChild(building);
+            }
+        }
+
+        function generateTrees() {
+            trees.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const tree = document.createElement('div');
+                tree.className = 'tree';
+                tree.innerHTML = '<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/tree.png" alt="tree">';
+                const width = Math.random() * 20 + 20;
+                tree.style.width = `${width}px`;
+                tree.style.left = `${Math.random() * LAYER_WIDTH}px`;
+                trees.appendChild(tree);
+            }
+        }
+
+        function spawnUnit(type) {
+            const unit = document.createElement('div');
             unit.className = type;
-            const x = baseX + (Math.random() - 0.5) * 20 * groupSize;
-            unit.src = `${githubBaseUrl}${type}.svg`;
-            unit.style.position = 'absolute';
+            unit.innerHTML = `<img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/${type}.png" alt="${type}">`;
+            const x = Math.random() * 785;
             unit.style.left = `${x}px`;
-            unit.style.width = '15px';
-            unit.style.height = '30px';
-            unit.style.top = '340px';
             unit.x = x;
-            unit.speed = type === 'person' ? 2 : type === 'police' ? 1.5 : 2;
+            unit.direction = Math.random() > 0.5 ? 1 : -1;
+            unit.speed = type === 'person' ? 1 : type === 'police' ? 2 : 3;
             unit.stepTimer = 0;
             unit.isActive = true;
-            unit.onerror = () => console.error(`Failed to load ${type}.svg from ${unit.src}`);
             canvas.appendChild(unit);
             return unit;
-        }
-
-        function spawnGroup(type, count) {
-            const baseX = Math.random() * 785;
-            const group = [];
-            for (let i = 0; i < count; i++) {
-                group.push(spawnUnit(type, baseX, count));
-            }
-            return group;
-        }
-
-        function spawnBuilding(type, baseX) {
-            const building = document.createElement('img');
-            building.className = type;
-            const width = type === 'building-background' ? 80 : type === 'building-midground' ? 120 : 150;
-            const height = type === 'building-background' ? 60 : type === 'building-midground' ? 100 : 140;
-            building.src = `${githubBaseUrl}${type}.svg`;
-            building.style.position = 'absolute';
-            building.style.left = `${baseX}px`;
-            building.style.width = `${width}px`;
-            building.style.height = `${height}px`;
-            building.style.bottom = '60px';
-            building.x = baseX;
-            building.onerror = () => console.error(`Failed to load ${type}.svg from ${building.src}`);
-            canvas.appendChild(building);
-            return building;
-        }
-
-        function spawnTree(baseX) {
-            const tree = document.createElement('img');
-            tree.className = 'tree';
-            tree.src = `${githubBaseUrl}tree.svg`;
-            tree.style.position = 'absolute';
-            tree.style.left = `${baseX}px`;
-            tree.style.width = '30px';
-            tree.style.height = '50px';
-            tree.style.bottom = '60px';
-            tree.x = baseX;
-            tree.onerror = () => console.error(`Failed to load tree.svg from ${tree.src}`);
-            canvas.appendChild(tree);
-            return tree;
         }
 
         function resetGame() {
@@ -273,36 +327,39 @@
             damage = 0; timer = 60; score = 0; abductions = 0; kills = 0;
             isShielded = false; shield.style.display = 'none';
             provoked = false;
-            lastSpawnTime = 0;
             cityX = 0; city.style.left = '0px';
-
+            starsX = 0; stars.style.left = '0px';
+            hillsX = 0; hills.style.left = '0px';
+            backgroundBuildingsX = 0; backgroundBuildings.style.left = '0px';
+            midgroundBuildingsX = 0; midgroundBuildings.style.left = '0px';
+            foregroundBuildingsX = 0; foregroundBuildings.style.left = '0px';
+            treesX = 0; trees.style.left = '0px';
+            generateStars();
+            generateHills();
+            generateBackgroundBuildings();
+            generateMidgroundBuildings();
+            generateForegroundBuildings();
+            generateTrees();
             civilians.forEach(unit => unit.remove());
             police.forEach(unit => unit.remove());
             military.forEach(unit => unit.remove());
-            const existingBuildings = canvas.querySelectorAll('.building-background, .building-midground, .building-foreground, .tree');
-            existingBuildings.forEach(building => building.remove());
-
-            civilians = [];
-            police = [];
-            military = [];
-            for (let i = 0; i < MAX_CIVILIANS; i++) civilians.push(spawnUnit('person', Math.random() * 785));
-            for (let i = 0; i < MAX_POLICE / 2; i++) police.push(...spawnGroup('police', Math.floor(Math.random() * 3) + 2));
-            for (let i = 0; i < MAX_MILITARY / 2; i++) military.push(...spawnGroup('military', Math.floor(Math.random() * 3) + 2));
-
-            for (let i = 0; i < 10; i++) spawnBuilding('building-background', Math.random() * LAYER_WIDTH);
-            for (let i = 0; i < 15; i++) spawnBuilding('building-midground', Math.random() * LAYER_WIDTH);
-            for (let i = 0; i < 10; i++) spawnBuilding('building-foreground', Math.random() * LAYER_WIDTH);
-            for (let i = 0; i < 20; i++) spawnTree(Math.random() * LAYER_WIDTH);
-
+            civilians = []; police = []; military = [];
+            for (let i = 0; i < MAX_CIVILIANS; i++) civilians.push(spawnUnit('person'));
+            for (let i = 0; i < MAX_POLICE; i++) police.push(spawnUnit('police'));
+            for (let i = 0; i < MAX_MILITARY; i++) military.push(spawnUnit('military'));
             for (let i = 0; i < bullets.length; i++) {
                 bulletActive[i] = false;
                 bullets[i].style.display = 'none';
             }
+            spotlightX = [510, 910];
+            spotlights.forEach((s, i) => {
+                s.style.left = spotlightX[i] + 'px';
+                s.style.display = 'none';
+            });
+            landingX = 200; landingZone.style.left = landingX + 'px';
             endGame.style.display = 'none';
-            ufo.className = '';
-            ufo.src = `${githubBaseUrl}ufo.svg`;
+            ufo.classList.remove('crash');
             ufo.style.top = '100px';
-            titleCard.style.display = 'block';
         }
 
         function updateUnits(units, unitWidth, scrollSpeed) {
@@ -314,10 +371,9 @@
                 }
                 unit.x += scrollSpeed;
                 unit.stepTimer += 0.016;
-                const stepInterval = unit.className === 'person' ? 0.5 : 0.3;
+                const stepInterval = unit.className === 'person' ? 0.5 : unit.className === 'police' ? 0.4 : 0.3;
                 if (unit.stepTimer >= stepInterval) {
-                    const direction = unit.className === 'person' ? (unit.x < ufoX ? 1 : -1) : (unit.x < ufoX ? 1 : -1);
-                    unit.x += unit.speed * direction;
+                    unit.x += unit.speed * unit.direction;
                     unit.stepTimer = 0;
                     if (unit.x < -unitWidth) unit.x += 800;
                     if (unit.x > 800) unit.x -= 800;
@@ -330,37 +386,14 @@
             });
         }
 
-        function updateBuildings(className, scrollSpeed) {
-            const buildings = canvas.querySelectorAll(`.${className}`);
-            buildings.forEach(building => {
-                building.x += scrollSpeed;
-                if (building.x > 800) building.x -= LAYER_WIDTH;
-                if (building.x < -LAYER_WIDTH) building.x += LAYER_WIDTH;
-                building.style.left = building.x + 'px';
-            });
-        }
-
-        function respawnUnits(currentTime) {
-            const elapsedTime = currentTime - lastSpawnTime;
-            const spawnInterval = 2;
-
-            if (elapsedTime >= spawnInterval) {
-                if (civilians.length < MAX_CIVILIANS && Math.random() < 0.3) {
-                    civilians.push(spawnUnit('person', Math.random() * 785));
-                }
-                if (police.length < MAX_POLICE && Math.random() < 0.2) {
-                    police.push(...spawnGroup('police', Math.floor(Math.random() * 3) + 2));
-                }
-                if (military.length < MAX_MILITARY && Math.random() < 0.15) {
-                    military.push(...spawnGroup('military', Math.floor(Math.random() * 3) + 2));
-                }
-                lastSpawnTime = currentTime - (Math.random() * 2 - 1);
-            }
+        function respawnUnits() {
+            while (civilians.length < MAX_CIVILIANS) civilians.push(spawnUnit('person'));
+            while (police.length < MAX_POLICE) police.push(spawnUnit('police'));
+            while (military.length < MAX_MILITARY) military.push(spawnUnit('military'));
         }
 
         function crashUFO() {
-            ufo.className = 'crash';
-            ufo.src = `${githubBaseUrl}ufo.svg`; // Adjust if you have a separate crash SVG
+            ufo.classList.add('crash');
             ufo.style.top = '370px';
             setTimeout(() => {
                 endGame.style.display = 'block';
@@ -369,8 +402,6 @@
         }
 
         function update() {
-            const currentTime = performance.now() / 1000;
-
             if (damage < 100 && timer > 0) {
                 if (keys['ArrowLeft']) ufoVX -= 0.3;
                 if (keys['ArrowRight']) ufoVX += 0.3;
@@ -399,25 +430,50 @@
 
                 let scrollSpeed = ufoVX * -1;
                 cityX += scrollSpeed;
-                if (cityX > 800) cityX -= LAYER_WIDTH;
-                if (cityX < -LAYER_WIDTH) cityX += LAYER_WIDTH;
+                if (cityX <= -LAYER_WIDTH) cityX += LAYER_WIDTH;
+                if (cityX >= 0) cityX -= LAYER_WIDTH;
                 city.style.left = cityX + 'px';
 
-                updateBuildings('building-background', scrollSpeed * 0.2);
-                updateBuildings('building-midground', scrollSpeed * 0.4);
-                updateBuildings('building-foreground', scrollSpeed * 0.6);
-                updateBuildings('tree', scrollSpeed * 0.8);
+                starsX += scrollSpeed * 0.05;
+                if (starsX <= -LAYER_WIDTH) starsX += LAYER_WIDTH;
+                if (starsX >= 0) starsX -= LAYER_WIDTH;
+                stars.style.left = starsX + 'px';
+
+                hillsX += scrollSpeed * 0.1;
+                if (hillsX <= -LAYER_WIDTH) hillsX += LAYER_WIDTH;
+                if (hillsX >= 0) hillsX -= LAYER_WIDTH;
+                hills.style.left = hillsX + 'px';
+
+                backgroundBuildingsX += scrollSpeed * 0.2;
+                if (backgroundBuildingsX <= -LAYER_WIDTH) backgroundBuildingsX += LAYER_WIDTH;
+                if (backgroundBuildingsX >= 0) backgroundBuildingsX -= LAYER_WIDTH;
+                backgroundBuildings.style.left = backgroundBuildingsX + 'px';
+
+                midgroundBuildingsX += scrollSpeed * 0.4;
+                if (midgroundBuildingsX <= -LAYER_WIDTH) midgroundBuildingsX += LAYER_WIDTH;
+                if (midgroundBuildingsX >= 0) midgroundBuildingsX -= LAYER_WIDTH;
+                midgroundBuildings.style.left = midgroundBuildingsX + 'px';
+
+                foregroundBuildingsX += scrollSpeed * 0.6;
+                if (foregroundBuildingsX <= -LAYER_WIDTH) foregroundBuildingsX += LAYER_WIDTH;
+                if (foregroundBuildingsX >= 0) foregroundBuildingsX -= LAYER_WIDTH;
+                foregroundBuildings.style.left = foregroundBuildingsX + 'px';
+
+                treesX += scrollSpeed * 0.8;
+                if (treesX <= -LAYER_WIDTH) treesX += LAYER_WIDTH;
+                if (treesX >= 0) treesX -= LAYER_WIDTH;
+                trees.style.left = treesX + 'px';
 
                 updateUnits(civilians, 15, scrollSpeed);
-                updateUnits(police, 15, scrollSpeed);
-                updateUnits(military, 15, scrollSpeed);
-                if (titleCard.style.display === 'none') respawnUnits(currentTime);
+                updateUnits(police, 20, scrollSpeed);
+                updateUnits(military, 25, scrollSpeed);
+                respawnUnits();
 
-                if (provoked && titleCard.style.display === 'none') {
-                    for (let i = 0; i < police.length && i < 3; i++) {
+                if (provoked) {
+                    for (let i = 0; i < police.length; i++) {
                         if (!bulletActive[i] && Math.random() < 0.05 && police[i].x > 0 && police[i].x < 800) {
                             bulletActive[i] = true;
-                            bulletX[i] = police[i].x + 7.5;
+                            bulletX[i] = police[i].x + 10;
                             bulletY[i] = 340;
                             let dx = (ufoX + 30) - bulletX[i];
                             let dy = ufoY - bulletY[i];
@@ -429,21 +485,6 @@
                             bullets[i].style.display = 'block';
                         }
                     }
-                    for (let i = 0; i < military.length && i + 3 < 6; i++) {
-                        if (!bulletActive[i + 3] && Math.random() < 0.05 && military[i].x > 0 && military[i].x < 800) {
-                            bulletActive[i + 3] = true;
-                            bulletX[i + 3] = military[i].x + 7.5;
-                            bulletY[i + 3] = 340;
-                            let dx = (ufoX + 30) - bulletX[i + 3];
-                            let dy = ufoY - bulletY[i + 3];
-                            let dist = Math.sqrt(dx * dx + dy * dy);
-                            bulletVX[i + 3] = (dx / dist) * 5;
-                            bulletVY[i + 3] = (dy / dist) * 5;
-                            bullets[i + 3].style.left = bulletX[i + 3] + 'px';
-                            bullets[i].style.top = bulletY[i + 3] + 'px';
-                            bullets[i].style.display = 'block';
-                        }
-                    }
                 }
 
                 for (let i = 0; i < bullets.length; i++) {
@@ -452,8 +493,8 @@
                         bulletY[i] += bulletVY[i];
                         bullets[i].style.left = bulletX[i] + 'px';
                         bullets[i].style.top = bulletY[i] + 'px';
-                        if (checkCollision(ufoX, 60, bulletX[i], i < 3 ? 5 : 8) && bulletY[i] < ufoY + 30 && bulletY[i] > ufoY - 15) {
-                            if (!isShielded) damage += (i < 3 ? 1 : 5);
+                        if (checkCollision(ufoX, 60, bulletX[i], 5) && bulletY[i] < ufoY + 30 && bulletY[i] > ufoY - 10) {
+                            if (!isShielded) damage += 1;
                             bulletActive[i] = false;
                             bullets[i].style.display = 'none';
                         }
@@ -464,7 +505,25 @@
                     }
                 }
 
-                if (keys['b'] && titleCard.style.display === 'none') {
+                for (let i = 0; i < spotlights.length; i++) {
+                    if (provoked) {
+                        spotlightX[i] = military[i * 2 + 1]?.x + 10 || spotlightX[i];
+                        spotlightX[i] += (ufoX - spotlightX[i]) * 0.1;
+                        spotlights[i].style.left = spotlightX[i] + 'px';
+                        spotlights[i].style.top = '340px';
+                        spotlights[i].style.height = `${ufoY - 340 + 30}px`;
+                        spotlights[i].style.display = 'block';
+                    } else {
+                        spotlights[i].style.display = 'none';
+                    }
+                }
+
+                landingX += scrollSpeed;
+                if (landingX <= -LAYER_WIDTH) landingX += LAYER_WIDTH;
+                if (landingX >= 0) landingX -= LAYER_WIDTH;
+                landingZone.style.left = landingX + 'px';
+
+                if (keys['b']) {
                     blueBeam.style.left = (ufoX + 20) + 'px';
                     blueBeam.style.top = (ufoY + 30) + 'px';
                     blueBeam.style.height = (370 - (ufoY + 30)) + 'px';
@@ -480,7 +539,7 @@
                         }
                     });
                     police.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 20)) {
                             unit.isActive = false;
                             unit.remove();
                             police.splice(i, 1);
@@ -489,7 +548,7 @@
                         }
                     });
                     military.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 25)) {
                             unit.isActive = false;
                             unit.remove();
                             military.splice(i, 1);
@@ -501,7 +560,7 @@
                     blueBeam.style.display = 'none';
                 }
 
-                if (keys['v'] && titleCard.style.display === 'none') {
+                if (keys['v']) {
                     redBeam.style.left = (ufoX + 20) + 'px';
                     redBeam.style.top = (ufoY + 30) + 'px';
                     redBeam.style.height = (370 - (ufoY + 30)) + 'px';
@@ -517,7 +576,7 @@
                         }
                     });
                     police.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 20)) {
                             unit.isActive = false;
                             unit.remove();
                             police.splice(i, 1);
@@ -527,7 +586,7 @@
                         }
                     });
                     military.forEach((unit, i) => {
-                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 15)) {
+                        if (unit.isActive && checkCollision(ufoX + 20, 20, unit.x, 25)) {
                             unit.isActive = false;
                             unit.remove();
                             military.splice(i, 1);
