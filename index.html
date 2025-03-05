@@ -29,7 +29,7 @@
             background: none;
         }
 
-        .ufo { width: 60px; height: 30px; z-index: 5; }
+        .ufo { width: 60px; height: 30px; z-index: 5; border: 2px solid red; } /* Temporary border to see it */
         .shield { width: 70px; height: 40px; display: none; z-index: 6; }
         .city { width: 2400px; height: 60px; bottom: 0; z-index: 2; }
         .person { width: 15px; height: 25px; top: 345px; z-index: 3; }
@@ -70,12 +70,12 @@
             z-index: 4;
         }
 
-        .stars { width: 2400px; height: 400px; top: 0; left: 0; z-index: -3; }
-        .hills { width: 2400px; height: 150px; bottom: 60px; z-index: -2; }
-        .background-buildings { width: 2400px; height: 150px; bottom: 60px; z-index: 0; }
-        .midground-buildings { width: 2400px; height: 200px; bottom: 60px; z-index: 1; }
-        .foreground-buildings { width: 2400px; height: 250px; bottom: 60px; z-index: 2; }
-        .trees { width: 2400px; height: 100px; bottom: 60px; z-index: 3; }
+        .stars { position: absolute; width: 2400px; height: 400px; top: 0; left: 0; z-index: -3; }
+        .hills { position: absolute; width: 2400px; height: 150px; bottom: 60px; z-index: -2; }
+        .background-buildings { position: absolute; width: 2400px; height: 150px; bottom: 60px; z-index: 0; }
+        .midground-buildings { position: absolute; width: 2400px; height: 200px; bottom: 60px; z-index: 1; }
+        .foreground-buildings { position: absolute; width: 2400px; height: 250px; bottom: 60px; z-index: 2; }
+        .trees { position: absolute; width: 2400px; height: 100px; bottom: 60px; z-index: 3; }
         #ui {
             position: absolute;
             top: 10px;
@@ -326,6 +326,7 @@
             endGame.style.display = 'none';
             ufo.classList.remove('crash');
             ufo.style.top = '100px';
+            ufo.style.left = '100px'; // Ensure initial position
         }
 
         function updateUnits(units, unitWidth, scrollSpeed) {
@@ -395,6 +396,8 @@
                 }
 
                 let scrollSpeed = ufoVX * -1;
+                console.log('Scroll Speed:', scrollSpeed, 'ufoVX:', ufoVX); // Debug scroll speed
+
                 cityX += scrollSpeed;
                 if (cityX <= -LAYER_WIDTH) cityX += LAYER_WIDTH;
                 if (cityX >= 0) cityX -= LAYER_WIDTH;
