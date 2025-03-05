@@ -21,37 +21,8 @@
             image-rendering: pixelated;
         }
         
-        /* Restore original UFO styling */
-        .ufo {
-            position: absolute;
-            width: 60px;
-            height: 30px;
-            background: #808080; /* Grey base */
-            border-radius: 50% 50% 20% 20%;
-            box-shadow: 0 0 15px #808080, 0 5px 5px rgba(0, 0, 0, 0.7);
-            transition: background 0.5s ease-in-out;
-            z-index: 5;
-        }
-        .ufo::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 0;
-            width: 60px;
-            height: 10px;
-            background: red;
-            animation: pulse 0.8s infinite;
-        }
-        .ufo.crash {
-            background: #ff4500;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.1); }
-        }
-
-        /* PNG elements */
-        .shield, .city, .person, .police, .military, 
+        /* Remove original styling for elements we'll replace with PNGs */
+        .ufo, .shield, .city, .person, .police, .military, 
         .spotlight, .landingZone, .star, .hill,
         .building-background, .building-midground, 
         .building-foreground, .tree {
@@ -59,7 +30,8 @@
             background: none;
         }
 
-        /* Dimensions for PNG elements */
+        /* Set dimensions for PNG elements */
+        .ufo { width: 60px; height: 30px; z-index: 5; }
         .shield { width: 70px; height: 40px; display: none; z-index: 6; }
         .city { width: 2400px; height: 60px; bottom: 0; z-index: 2; }
         .person { width: 15px; height: 25px; top: 345px; z-index: 3; }
@@ -133,7 +105,7 @@
             z-index: 20;
         }
 
-        /* Ensure PNG images fit their containers */
+        /* Ensure images fit their containers */
         img {
             width: 100%;
             height: 100%;
@@ -150,7 +122,7 @@
         <div id="foregroundBuildings" class="foreground-buildings"></div>
         <div id="trees" class="trees"></div>
         <div id="city"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/city.png" alt="city"></div>
-        <div id="ufo" class="ufo"></div> <!-- CSS-styled UFO, no img tag -->
+        <div id="ufo"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/ufo.png" alt="ufo"></div>
         <div id="shield"><img src="https://raw.githubusercontent.com/cwlcampbellx/battle-los-angeles/main/shield.png" alt="shield"></div>
         <div id="blueBeam" class="blueBeam"></div>
         <div id="redBeam" class="redBeam"></div>
@@ -168,7 +140,6 @@
     </div>
 
     <script>
-        // ... (JavaScript remains unchanged from your last version)
         const canvas = document.getElementById('gameCanvas');
         const ufo = document.getElementById('ufo');
         const shield = document.getElementById('shield');
