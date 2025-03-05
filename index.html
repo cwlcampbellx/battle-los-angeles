@@ -29,20 +29,113 @@
             background: none;
         }
 
-        .ufo { width: 60px; height: 30px; z-index: 5; border: 2px solid red; } /* Temporary border to see it */
-        .shield { width: 70px; height: 40px; display: none; z-index: 6; }
-        .city { width: 2400px; height: 60px; bottom: 0; z-index: 2; }
-        .person { width: 15px; height: 25px; top: 345px; z-index: 3; }
-        .police { width: 20px; height: 30px; top: 340px; z-index: 3; }
-        .military { width: 25px; height: 35px; top: 335px; z-index: 3; }
-        .spotlight { width: 20px; display: none; z-index: 4; }
-        .landingZone { width: 100px; height: 10px; top: 360px; z-index: 2; }
-        .star { width: 5px; height: 5px; }
+        .ufo {
+            width: 60px;
+            height: 30px;
+            z-index: 5;
+            overflow: hidden;
+            /* border: 2px solid red; */ /* Uncomment for debugging */
+        }
+        .ufo img {
+            width: 60px;
+            height: 30px;
+            object-fit: cover;
+        }
+        .shield {
+            width: 70px;
+            height: 40px;
+            display: none;
+            z-index: 6;
+        }
+        .shield img {
+            width: 70px;
+            height: 40px;
+            object-fit: cover;
+        }
+        .city {
+            width: 2400px;
+            height: 60px;
+            bottom: 0;
+            z-index: 2;
+        }
+        .city img {
+            width: 2400px;
+            height: 60px;
+            object-fit: cover;
+        }
+        .person {
+            width: 15px;
+            height: 25px;
+            top: 345px;
+            z-index: 3;
+        }
+        .person img {
+            width: 15px;
+            height: 25px;
+            object-fit: cover;
+        }
+        .police {
+            width: 20px;
+            height: 30px;
+            top: 340px;
+            z-index: 3;
+        }
+        .police img {
+            width: 20px;
+            height: 30px;
+            object-fit: cover;
+        }
+        .military {
+            width: 25px;
+            height: 35px;
+            top: 335px;
+            z-index: 3;
+        }
+        .military img {
+            width: 25px;
+            height: 35px;
+            object-fit: cover;
+        }
+        .spotlight {
+            width: 20px;
+            display: none;
+            z-index: 4;
+        }
+        .spotlight img {
+            width: 20px;
+            height: 100%; /* Adjusted by JS */
+            object-fit: cover;
+        }
+        .landingZone {
+            width: 100px;
+            height: 10px;
+            top: 360px;
+            z-index: 2;
+        }
+        .landingZone img {
+            width: 100px;
+            height: 10px;
+            object-fit: cover;
+        }
+        .star {
+            width: 5px;
+            height: 5px;
+        }
+        .star img {
+            width: 5px;
+            height: 5px;
+            object-fit: cover;
+        }
         .hill { bottom: 0; }
+        .hill img { object-fit: cover; }
         .building-background { bottom: 0; }
+        .building-background img { object-fit: cover; }
         .building-midground { bottom: 0; }
+        .building-midground img { object-fit: cover; }
         .building-foreground { bottom: 0; }
+        .building-foreground img { object-fit: cover; }
         .tree { bottom: 0; }
+        .tree img { object-fit: cover; }
 
         .blueBeam {
             position: absolute;
@@ -99,12 +192,6 @@
             border: 2px solid #00ff00;
             display: none;
             z-index: 20;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
     </style>
 </head>
@@ -326,7 +413,8 @@
             endGame.style.display = 'none';
             ufo.classList.remove('crash');
             ufo.style.top = '100px';
-            ufo.style.left = '100px'; // Ensure initial position
+            ufo.style.left = '100px';
+            console.log('Game reset, UFO at:', ufo.style.left, ufo.style.top);
         }
 
         function updateUnits(units, unitWidth, scrollSpeed) {
@@ -396,7 +484,7 @@
                 }
 
                 let scrollSpeed = ufoVX * -1;
-                console.log('Scroll Speed:', scrollSpeed, 'ufoVX:', ufoVX); // Debug scroll speed
+                console.log('Scroll Speed:', scrollSpeed, 'ufoVX:', ufoVX);
 
                 cityX += scrollSpeed;
                 if (cityX <= -LAYER_WIDTH) cityX += LAYER_WIDTH;
